@@ -1,0 +1,151 @@
+<form theme="dark">
+  <label>Error Reporting</label>
+  <fieldset submitButton="false"></fieldset>
+  <row>
+    <panel>
+      <chart>
+        <title>Past 3 Days of Activity by Timechart</title>
+        <search>
+          <query>index=home error* OR fail* OR critcial* OR issue* OR problem*  
+| timechart span=10m count by sourcetype</query>
+          <earliest>-3d</earliest>
+          <latest>now</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
+        <option name="charting.axisLabelsX.majorLabelStyle.rotation">-45</option>
+        <option name="charting.axisTitleX.visibility">collapsed</option>
+        <option name="charting.axisTitleY.visibility">visible</option>
+        <option name="charting.axisTitleY2.visibility">visible</option>
+        <option name="charting.axisX.abbreviation">none</option>
+        <option name="charting.axisX.scale">linear</option>
+        <option name="charting.axisY.abbreviation">none</option>
+        <option name="charting.axisY.scale">linear</option>
+        <option name="charting.axisY2.abbreviation">none</option>
+        <option name="charting.axisY2.enabled">0</option>
+        <option name="charting.axisY2.scale">inherit</option>
+        <option name="charting.chart">area</option>
+        <option name="charting.chart.bubbleMaximumSize">50</option>
+        <option name="charting.chart.bubbleMinimumSize">10</option>
+        <option name="charting.chart.bubbleSizeBy">area</option>
+        <option name="charting.chart.nullValueMode">gaps</option>
+        <option name="charting.chart.showDataLabels">none</option>
+        <option name="charting.chart.sliceCollapsingThreshold">0.01</option>
+        <option name="charting.chart.stackMode">default</option>
+        <option name="charting.chart.style">shiny</option>
+        <option name="charting.drilldown">none</option>
+        <option name="charting.layout.splitSeries">0</option>
+        <option name="charting.layout.splitSeries.allowIndependentYRanges">0</option>
+        <option name="charting.legend.labelStyle.overflowMode">ellipsisMiddle</option>
+        <option name="charting.legend.mode">standard</option>
+        <option name="charting.legend.placement">top</option>
+        <option name="charting.lineWidth">2</option>
+        <option name="height">309</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="trellis.enabled">0</option>
+        <option name="trellis.scales.shared">1</option>
+        <option name="trellis.size">medium</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Pre-set to 24hrs</title>
+      <input type="dropdown" token="sourcetype" searchWhenChanged="true">
+        <label>Sourcetype</label>
+        <choice value="*">All</choice>
+        <default>*</default>
+        <initialValue>*</initialValue>
+        <fieldForLabel>sourcetype</fieldForLabel>
+        <fieldForValue>sourcetype</fieldForValue>
+        <search>
+          <query>index=home | dedup sourcetype | table sourcetype</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+        </search>
+      </input>
+      <input type="dropdown" token="process" searchWhenChanged="true">
+        <label>Running Process</label>
+        <choice value="*">All</choice>
+        <fieldForLabel>process</fieldForLabel>
+        <fieldForValue>process</fieldForValue>
+        <search>
+          <query>index=home error* OR fail* OR critcial* OR issue* OR problem*  | search sourcetype=$sourcetype$ | dedup process
+| table process</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+        </search>
+        <default>*</default>
+        <initialValue>*</initialValue>
+      </input>
+      <html encoded="1">&lt;p&gt;Select the sourcetype to perform a deep dive search.&lt;/p&gt;
+        &lt;p&gt;&lt;a class="external" href="/help?location=learnmore.validate.files" target="_blank"&gt;Learn more&lt;/a&gt;.&lt;/p&gt;</html>
+    </panel>
+    <panel>
+      <title>Errors by stats</title>
+      <chart>
+        <search>
+          <query>index=home error* OR fail* OR critcial* OR issue* OR problem* | search sourcetype=$sourcetype$  | stats count by sourcetype</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="charting.chart">pie</option>
+        <option name="height">298</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+    <panel>
+      <title>Syslog Process Errors by PID(s)</title>
+      <table>
+        <search>
+          <query>index=home error* OR fail* OR critcial* OR issue* OR problem*  | search sourcetype=$sourcetype$  | dedup pid | stats dc(pid) as PID by process | sort -PID</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="percentagesRow">false</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="totalsRow">true</option>
+        <option name="wrap">false</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <input type="time" token="field1">
+        <label></label>
+        <default>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+        </default>
+      </input>
+      <input type="text" token="term" searchWhenChanged="true">
+        <label>Search Term</label>
+        <default>*</default>
+        <initialValue>*</initialValue>
+      </input>
+      <table>
+        <search>
+          <query>index=home error* OR fail* OR critcial* OR issue* OR problem* $process$ $term$
+| search sourcetype=$sourcetype$ 
+| eval Date=strftime(_time,"%d %m %Y %H:%M:%S %Z")
+| table Date _raw
+| sort -Date</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="count">10</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">cell</option>
+        <option name="percentagesRow">false</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="rowNumbers">false</option>
+        <option name="totalsRow">false</option>
+        <option name="wrap">false</option>
+      </table>
+    </panel>
+  </row>
+</form>
