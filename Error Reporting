@@ -7,6 +7,7 @@
         <title>Past 3 Days of Activity by Timechart</title>
         <search>
           <query>index=home error* OR fail* OR critcial* OR issue* OR problem*  
+| search _raw!="* notify_register_coalesced_registration failed with code 9 on line 2835" 
 | timechart span=10m count by sourcetype</query>
           <earliest>-3d</earliest>
           <latest>now</latest>
@@ -51,6 +52,13 @@
   <row>
     <panel>
       <title>Pre-set to 24hrs</title>
+      <input type="time" token="field1" searchWhenChanged="true">
+        <label></label>
+        <default>
+          <earliest>-60m@m</earliest>
+          <latest>now</latest>
+        </default>
+      </input>
       <input type="dropdown" token="sourcetype" searchWhenChanged="true">
         <label>Sourcetype</label>
         <choice value="*">All</choice>
@@ -59,7 +67,8 @@
         <fieldForLabel>sourcetype</fieldForLabel>
         <fieldForValue>sourcetype</fieldForValue>
         <search>
-          <query>index=home | dedup sourcetype | table sourcetype</query>
+          <query>index=home | search _raw!="* notify_register_coalesced_registration failed with code 9 on line 2835" 
+| dedup sourcetype | table sourcetype</query>
           <earliest>-24h@h</earliest>
           <latest>now</latest>
         </search>
@@ -70,7 +79,10 @@
         <fieldForLabel>process</fieldForLabel>
         <fieldForValue>process</fieldForValue>
         <search>
-          <query>index=home error* OR fail* OR critcial* OR issue* OR problem*  | search sourcetype=$sourcetype$ | dedup process
+          <query>index=* error* OR fail* OR critcial* OR issue* OR problem* 
+| search sourcetype=syslog
+| search _raw!="* notify_register_coalesced_registration failed with code 9 on line 2835" 
+| dedup process
 | table process</query>
           <earliest>-24h@h</earliest>
           <latest>now</latest>
@@ -78,49 +90,68 @@
         <default>*</default>
         <initialValue>*</initialValue>
       </input>
+      <input type="dropdown" token="services" searchWhenChanged="true">
+        <label>Services</label>
+        <choice value="*">All</choice>
+        <default>*</default>
+        <initialValue>*</initialValue>
+        <fieldForLabel>service</fieldForLabel>
+        <fieldForValue>service</fieldForValue>
+        <search>
+          <query>index=home error* OR fail* OR critcial* OR issue* OR problem* * $process$
+| search sourcetype=syslog 
+| search _raw!="* notify_register_coalesced_registration failed with code 9 on line 2835" 
+| eval Date=strftime(_time,"%d %m %Y %H:%M:%S %Z")
+| dedup service
+| table service</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+        </search>
+      </input>
       <html encoded="1">&lt;p&gt;Select the sourcetype to perform a deep dive search.&lt;/p&gt;
         &lt;p&gt;&lt;a class="external" href="/help?location=learnmore.validate.files" target="_blank"&gt;Learn more&lt;/a&gt;.&lt;/p&gt;</html>
-    </panel>
-    <panel>
-      <title>Errors by stats</title>
-      <chart>
-        <search>
-          <query>index=home error* OR fail* OR critcial* OR issue* OR problem* | search sourcetype=$sourcetype$  | stats count by sourcetype</query>
-          <earliest>-24h@h</earliest>
-          <latest>now</latest>
-          <sampleRatio>1</sampleRatio>
-        </search>
-        <option name="charting.chart">pie</option>
-        <option name="height">298</option>
-        <option name="refresh.display">progressbar</option>
-      </chart>
-    </panel>
-    <panel>
-      <title>Syslog Process Errors by PID(s)</title>
-      <table>
-        <search>
-          <query>index=home error* OR fail* OR critcial* OR issue* OR problem*  | search sourcetype=$sourcetype$  | dedup pid | stats dc(pid) as PID by process | sort -PID</query>
-          <earliest>-24h@h</earliest>
-          <latest>now</latest>
-          <sampleRatio>1</sampleRatio>
-        </search>
-        <option name="drilldown">none</option>
-        <option name="percentagesRow">false</option>
-        <option name="refresh.display">progressbar</option>
-        <option name="totalsRow">true</option>
-        <option name="wrap">false</option>
-      </table>
     </panel>
   </row>
   <row>
     <panel>
-      <input type="time" token="field1">
-        <label></label>
-        <default>
-          <earliest>-24h@h</earliest>
-          <latest>now</latest>
-        </default>
-      </input>
+      <title>Running $process$ by Stats by Process ID  (Pie Chart)</title>
+      <table>
+        <title>$process$</title>
+        <search>
+          <query>index=home error* OR fail* OR critcial* OR issue* OR problem* 
+| search sourcetype=$sourcetype$
+| search _raw!="* notify_register_coalesced_registration failed with code 9 on line 2835" 
+| stats count dc(pid) as "Process ID" by process
+| sort -"Process ID" process</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="drilldown">cell</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="totalsRow">true</option>
+        <option name="wrap">true</option>
+      </table>
+    </panel>
+    <panel>
+      <title>Syslog Process Errors by PID(s)</title>
+      <chart>
+        <title>$service$</title>
+        <search>
+          <query>index=* error* OR fail* OR critcial* OR issue* OR problem*  | search sourcetype=$sourcetype$ OR process=$process$ | search _raw!="* notify_register_coalesced_registration failed with code 9 on line 2835"  | eval Date=strftime(_time,"%d %m %Y %H:%M:%S %Z")  | stats count by service</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="charting.chart">pie</option>
+        <option name="charting.drilldown">none</option>
+        <option name="height">413</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
       <input type="text" token="term" searchWhenChanged="true">
         <label>Search Term</label>
         <default>*</default>
@@ -128,13 +159,14 @@
       </input>
       <table>
         <search>
-          <query>index=home error* OR fail* OR critcial* OR issue* OR problem* $process$ $term$
-| search sourcetype=$sourcetype$ 
+          <query>index=home error* OR fail* OR critcial* OR issue* OR problem* "*$term$*"
+| search sourcetype=$sourcetype$ OR process=$process$ OR services=$services$
+| search _raw!="* notify_register_coalesced_registration failed with code 9 on line 2835" 
 | eval Date=strftime(_time,"%d %m %Y %H:%M:%S %Z")
 | table Date _raw
 | sort -Date</query>
-          <earliest>-24h@h</earliest>
-          <latest>now</latest>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
           <sampleRatio>1</sampleRatio>
         </search>
         <option name="count">10</option>
