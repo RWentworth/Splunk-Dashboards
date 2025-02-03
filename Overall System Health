@@ -1,0 +1,1152 @@
+{
+    "title": "Overall System Health",
+    "description": "",
+    "inputs": {
+        "input_Em0fsJAy": {
+            "canvasAlignment": "center",
+            "context": {
+                "formattedConfig": {
+                    "number": {
+                        "prefix": ""
+                    }
+                },
+                "formattedStatics": ">statics | formatByType(formattedConfig)",
+                "label": ">primary | seriesByName(\"error_code\") | renameSeries(\"label\") | formatByType(formattedConfig)",
+                "statics": [
+                    [
+                        "All"
+                    ],
+                    [
+                        "*"
+                    ]
+                ],
+                "value": ">primary | seriesByName(\"error_code\") | renameSeries(\"value\") | formatByType(formattedConfig)"
+            },
+            "dataSources": {
+                "primary": "ds_TkN9nJbX"
+            },
+            "options": {
+                "defaultValue": "*",
+                "items": ">frame(label, value) | prepend(formattedStatics) | objects()",
+                "token": "dd_Hu6OVCrU"
+            },
+            "title": "Error Code",
+            "type": "input.dropdown"
+        },
+        "input_global_trp": {
+            "options": {
+                "defaultValue": "-3d@d,now",
+                "token": "global_time"
+            },
+            "title": "Global Time Range",
+            "type": "input.timerange"
+        },
+        "input_mHrvQDIo": {
+            "dataSources": {
+                "primary": "ds_TaIpZDgR"
+            },
+            "options": {
+                "defaultValue": "*",
+                "items": [
+                    {
+                        "label": "All",
+                        "value": "*"
+                    }
+                ],
+                "token": "dd_H5FHskox"
+            },
+            "title": "Dropdown Input Title",
+            "type": "input.dropdown"
+        },
+        "input_tqojzaj6": {
+            "dataSources": {
+                "primary": "ds_lH047nb0"
+            },
+            "options": {
+                "defaultValue": "*",
+                "items": [
+                    {
+                        "label": "All",
+                        "value": "*"
+                    }
+                ],
+                "token": "dd_6S6g3d85"
+            },
+            "title": "Dropdown Input Title",
+            "type": "input.dropdown"
+        }
+    },
+    "defaults": {
+        "dataSources": {
+            "ds.search": {
+                "options": {
+                    "queryParameters": {
+                        "earliest": "$global_time.earliest$",
+                        "latest": "$global_time.latest$"
+                    }
+                }
+            }
+        },
+        "tokens": {
+            "default": {
+                "selected_error_code": {
+                    "value": "*"
+                }
+            }
+        }
+    },
+    "visualizations": {
+        "viz_1LXd423J": {
+            "containerOptions": {},
+            "context": {
+                "DateColumnFormatEditorConfig": {
+                    "string": {
+                        "unitPosition": "after"
+                    }
+                },
+                "error_codeColumnFormatEditorConfig": {
+                    "number": {
+                        "thousandSeparated": false,
+                        "unitPosition": "after"
+                    }
+                },
+                "error_resolutionColumnFormatEditorConfig": {
+                    "string": {
+                        "unitPosition": "after"
+                    }
+                }
+            },
+            "dataSources": {
+                "primary": "ds_oTPlWtv4"
+            },
+            "eventHandlers": [
+                {
+                    "options": {
+                        "newTab": true,
+                        "url": "https://www.cs.cmu.edu/afs/cs/user/lenzo/html/mac_errors.html"
+                    },
+                    "type": "drilldown.customUrl"
+                }
+            ],
+            "options": {
+                "backgroundColor": "transparent",
+                "columnFormat": {
+                    "#": {
+                        "width": 60
+                    },
+                    "Date": {
+                        "align": "left",
+                        "data": "> table | seriesByName(\"Date\") | formatByType(DateColumnFormatEditorConfig)",
+                        "headerAlign": "auto",
+                        "textOverflow": "ellipsis",
+                        "width": 254
+                    },
+                    "_raw": {
+                        "width": 514
+                    },
+                    "_time": {
+                        "width": 112
+                    },
+                    "error_code": {
+                        "align": "center",
+                        "data": "> table | seriesByName(\"error_code\") | formatByType(error_codeColumnFormatEditorConfig)",
+                        "headerAlign": "auto",
+                        "textOverflow": "anywhere",
+                        "width": 120
+                    },
+                    "error_meaning": {
+                        "width": 157
+                    },
+                    "error_name": {
+                        "width": 131
+                    },
+                    "error_resolution": {
+                        "align": "left",
+                        "data": "> table | seriesByName(\"error_resolution\") | formatByType(error_resolutionColumnFormatEditorConfig)",
+                        "headerAlign": "auto",
+                        "textOverflow": "break-word",
+                        "width": 364
+                    },
+                    "fix_recommendation": {
+                        "width": 361
+                    }
+                },
+                "showInternalFields": false,
+                "showRowNumbers": true,
+                "tableFormat": {
+                    "align": "center",
+                    "headerAlign": "center",
+                    "headerBackgroundColor": "> backgroundColor | setColorChannel(tableHeaderBackgroundColorConfig)",
+                    "headerColor": "> headerBackgroundColor | maxContrast(tableRowColorMaxContrast)",
+                    "rowBackgroundColors": "> table | seriesByIndex(0) | pick(tableAltRowBackgroundColorsByBackgroundColor)",
+                    "rowColors": "> rowBackgroundColors | maxContrast(tableRowColorMaxContrast)"
+                }
+            },
+            "showLastUpdated": false,
+            "showProgressBar": false,
+            "title": "Error Codes for $dd_H5FHskox$",
+            "type": "splunk.table"
+        },
+        "viz_1xW7YDjj": {
+            "containerOptions": {
+                "visibility": {}
+            },
+            "context": {
+                "convertedColorRange": [
+                    {
+                        "from": 0,
+                        "value": "#dc4e41"
+                    },
+                    {
+                        "to": 0,
+                        "value": "#53a051"
+                    }
+                ],
+                "majorColorEditorConfig": [
+                    {
+                        "to": 1,
+                        "value": "#D41F1F"
+                    },
+                    {
+                        "from": 1,
+                        "value": "#118832"
+                    }
+                ],
+                "trendColorEditorConfig": [
+                    {
+                        "to": 0,
+                        "value": "#9E2520"
+                    },
+                    {
+                        "from": 0,
+                        "value": "#1C6B2D"
+                    }
+                ]
+            },
+            "dataSources": {
+                "primary": "ds_HuwVtlLG"
+            },
+            "options": {
+                "majorColor": "> majorValue | rangeValue(majorColorEditorConfig)",
+                "majorValue": "> sparklineValues | lastPoint()",
+                "shouldUseThousandSeparators": true,
+                "sparklineDisplay": "after",
+                "sparklineValues": "> primary | seriesByName('count')",
+                "trellisColumns": 1,
+                "trendColor": "> trendValue | rangeValue(trendColorEditorConfig)",
+                "trendDisplay": "off",
+                "trendValue": "> sparklineValues | delta(-2)",
+                "unit": "issues"
+            },
+            "type": "splunk.singlevalue"
+        },
+        "viz_BkFCrdus": {
+            "dataSources": {
+                "primary": "ds_SH92T2PV"
+            },
+            "options": {
+                "backgroundColor": "transparent",
+                "count": 100,
+                "dataOverlayMode": "none",
+                "drilldown": "none",
+                "showInternalFields": false,
+                "showRowNumbers": false,
+                "tableFormat": {
+                    "align": "center",
+                    "headerAlign": "center",
+                    "headerBackgroundColor": "> backgroundColor | setColorChannel(tableHeaderBackgroundColorConfig)",
+                    "headerColor": "> headerBackgroundColor | maxContrast(tableRowColorMaxContrast)",
+                    "rowBackgroundColors": "> table | seriesByIndex(0) | pick(tableAltRowBackgroundColorsByBackgroundColor)",
+                    "rowColors": "> rowBackgroundColors | maxContrast(tableRowColorMaxContrast)"
+                }
+            },
+            "type": "splunk.table"
+        },
+        "viz_Btpajyvb": {
+            "dataSources": {
+                "primary": "ds_83PkNwHA"
+            },
+            "options": {
+                "count": 20,
+                "dataOverlayMode": "none",
+                "drilldown": "none",
+                "showInternalFields": false,
+                "showRowNumbers": false
+            },
+            "type": "splunk.table"
+        },
+        "viz_EKgTv2IO": {
+            "dataSources": {
+                "primary": "ds_tsgCFgZA"
+            },
+            "options": {
+                "count": 20,
+                "dataOverlayMode": "none",
+                "drilldown": "none",
+                "showInternalFields": false,
+                "showRowNumbers": false
+            },
+            "title": "Successfully Application Updates",
+            "type": "splunk.table"
+        },
+        "viz_GP34no8D": {
+            "containerOptions": {},
+            "context": {},
+            "dataSources": {
+                "fieldsummary": "ds_EG0lq1pY",
+                "primary": "ds_tnlYyaz4"
+            },
+            "options": {},
+            "showLastUpdated": false,
+            "showProgressBar": false,
+            "title": "Successfull Installs",
+            "type": "splunk.table"
+        },
+        "viz_M3RepM91": {
+            "containerOptions": {
+                "visibility": {}
+            },
+            "cornerRadius": [
+                0,
+                4,
+                0,
+                4
+            ],
+            "dataSources": {
+                "primary": "ds_zEaHJI5c"
+            },
+            "options": {
+                "backgroundColor": "> themes.defaultBackgroundColor",
+                "columnFormat": {
+                    "description": {
+                        "width": 237
+                    },
+                    "sourcetype": {
+                        "width": 108
+                    }
+                },
+                "fontSize": "large",
+                "headerVisibility": "none",
+                "tableFormat": {
+                    "align": "> table | type() | matchValue(tableAlignByType)",
+                    "headerAlign": "center",
+                    "rowBackgroundColors": "> table | seriesByIndex(0) | pick(tableAltRowBackgroundColorsByTheme)"
+                }
+            },
+            "showLastUpdated": false,
+            "showProgressBar": false,
+            "title": "Issues by Category",
+            "type": "splunk.table"
+        },
+        "viz_Sq8XtHRD": {
+            "dataSources": {
+                "primary": "ds_RrGUkaGV"
+            },
+            "options": {
+                "collapseThreshold": 0.01
+            },
+            "type": "splunk.pie"
+        },
+        "viz_e7sm89Zj": {
+            "cornerRadius": [
+                6,
+                6,
+                6,
+                6
+            ],
+            "dataSources": {
+                "primary": "ds_K1A2eqzV"
+            },
+            "options": {
+                "backgroundColor": "#000000",
+                "collapseThreshold": 1,
+                "label": "> primary | seriesByName('installAuth')",
+                "labelDisplay": "valuesAndPercentage",
+                "showDonutHole": true
+            },
+            "type": "splunk.pie"
+        },
+        "viz_f6PLEuh9": {
+            "dataSources": {
+                "primary": "ds_4gSiqRVh"
+            },
+            "options": {
+                "count": 20,
+                "dataOverlayMode": "none",
+                "drilldown": "none",
+                "showInternalFields": false,
+                "showRowNumbers": false,
+                "tableFormat": {
+                    "align": "left",
+                    "headerAlign": "left"
+                }
+            },
+            "title": "# of successful installs",
+            "type": "splunk.table"
+        },
+        "viz_fZvjnL4Y": {
+            "dataSources": {
+                "primary": "ds_UDwK7Pmc"
+            },
+            "options": {
+                "collapseThreshold": 0.01
+            },
+            "type": "splunk.pie"
+        },
+        "viz_gpAISOux": {
+            "containerOptions": {},
+            "dataSources": {
+                "primary": "ds_fs56AswB"
+            },
+            "showLastUpdated": false,
+            "showProgressBar": false,
+            "title": "Timeline: Did the install work",
+            "type": "splunk.line"
+        },
+        "viz_hZzbeaHn": {
+            "containerOptions": {
+                "visibility": {
+                    "hideWhenNoData": true
+                }
+            },
+            "dataSources": {
+                "primary": "ds_z6RAbcS6"
+            },
+            "options": {
+                "count": 20,
+                "dataOverlayMode": "none",
+                "drilldown": "none",
+                "showInternalFields": false,
+                "showRowNumbers": false
+            },
+            "title": "Break down of install errors: install.log",
+            "type": "splunk.table"
+        },
+        "viz_mGrpSY8u": {
+            "containerOptions": {
+                "visibility": {
+                    "hideWhenNoData": true
+                }
+            },
+            "dataSources": {
+                "primary": "ds_v1UYmh3M"
+            },
+            "options": {
+                "count": 20,
+                "dataOverlayMode": "none",
+                "drilldown": "none",
+                "showInternalFields": false,
+                "showRowNumbers": false
+            },
+            "title": "Shows how long it took to install something",
+            "type": "splunk.table"
+        },
+        "viz_qhv9OmDc": {
+            "containerOptions": {},
+            "context": {
+                "tokens": {
+                    "selected_error_code": {
+                        "value": "*"
+                    }
+                }
+            },
+            "dataSources": {
+                "primary": "ds_lgh8UxyL"
+            },
+            "eventHandlers": [
+                {
+                    "options": {
+                        "app": "search",
+                        "newTab": true,
+                        "report": "MAC OSX Error Codes"
+                    },
+                    "type": "drilldown.linkToReport"
+                }
+            ],
+            "options": {
+                "columnSpacing": -1,
+                "seriesColorsByField": {},
+                "seriesSpacing": 3,
+                "stackMode": "stacked",
+                "xAxisTitleText": ""
+            },
+            "showLastUpdated": false,
+            "showProgressBar": false,
+            "title": "Error code time chart",
+            "type": "splunk.column"
+        },
+        "viz_tPxAAyci": {
+            "context": {
+                "__of_running_ProcessColumnFormatEditorConfig": {
+                    "number": {
+                        "thousandSeparated": false,
+                        "unitPosition": "after"
+                    }
+                },
+                "__of_running_ProcessRowColorsEditorConfig": [
+                    {
+                        "to": 1,
+                        "value": "#118832"
+                    },
+                    {
+                        "from": 1,
+                        "value": "#d41f1f"
+                    }
+                ],
+                "serviceColumnFormatEditorConfig": {
+                    "string": {
+                        "unitPosition": "after"
+                    }
+                }
+            },
+            "dataSources": {
+                "primary": "ds_YlzG3AnP"
+            },
+            "eventHandlers": [],
+            "options": {
+                "columnFormat": {
+                    "#": {
+                        "width": 60
+                    },
+                    "# of running Process": {
+                        "align": "center",
+                        "data": "> table | seriesByName(\"# of running Process\") | formatByType(__of_running_ProcessColumnFormatEditorConfig)",
+                        "headerAlign": "left",
+                        "rowColors": "> table | seriesByName(\"# of running Process\") | rangeValue(__of_running_ProcessRowColorsEditorConfig)",
+                        "textOverflow": "anywhere"
+                    },
+                    "count": {
+                        "width": 60
+                    },
+                    "error_code": {
+                        "width": 60
+                    },
+                    "pid": {
+                        "width": 60
+                    },
+                    "process": {
+                        "width": 60
+                    },
+                    "service": {
+                        "align": "auto",
+                        "data": "> table | seriesByName(\"service\") | formatByType(serviceColumnFormatEditorConfig)",
+                        "headerAlign": "auto",
+                        "textOverflow": "break-word",
+                        "width": 60
+                    }
+                },
+                "font": "monospace",
+                "fontSize": "small",
+                "headerVisibility": "fixed",
+                "tableFormat": {
+                    "align": "left",
+                    "headerAlign": "left",
+                    "rowBackgroundColors": "> table | seriesByIndex(0) | pick(tableAltRowBackgroundColorsByTheme)"
+                }
+            },
+            "title": "Error Code",
+            "type": "splunk.table"
+        },
+        "viz_zxvXnddD": {
+            "context": {
+                "convertedColorRange": [
+                    {
+                        "from": 1,
+                        "value": "#dc4e41"
+                    },
+                    {
+                        "to": 1,
+                        "value": "#53a051"
+                    }
+                ],
+                "majorColorEditorConfig": [
+                    {
+                        "to": 20,
+                        "value": "#D41F1F"
+                    },
+                    {
+                        "from": 20,
+                        "to": 40,
+                        "value": "#D94E17"
+                    },
+                    {
+                        "from": 40,
+                        "to": 60,
+                        "value": "#CBA700"
+                    },
+                    {
+                        "from": 60,
+                        "to": 80,
+                        "value": "#669922"
+                    },
+                    {
+                        "from": 80,
+                        "value": "#118832"
+                    }
+                ]
+            },
+            "dataSources": {
+                "primary": "ds_ERrrGpzJ"
+            },
+            "description": "",
+            "options": {
+                "majorColor": "> majorValue | rangeValue(majorColorEditorConfig)",
+                "numberPrecision": 0,
+                "shouldUseThousandSeparators": true,
+                "sparklineDisplay": "below",
+                "trendDisplay": "absolute",
+                "unit": "",
+                "unitPosition": "before"
+            },
+            "type": "splunk.singlevalue"
+        }
+    },
+    "dataSources": {
+        "ds_4gSiqRVh": {
+            "name": "_ of successful installs search",
+            "options": {
+                "query": "index=* source=\"/var/log/install.log\" \"softwareupdate\"  installAuth=YES \n| eval Date=strftime(_time, \"%m/%d/%Y\") | stats  count values(date_wday) as date_wday by  Date",
+                "queryParameters": {
+                    "earliest": "-30d@d",
+                    "latest": "now"
+                }
+            },
+            "type": "ds.search"
+        },
+        "ds_5C4UWaZg": {
+            "name": "System Integrity 2 search",
+            "options": {
+                "extend": "ds_Gd1q4DzW",
+                "query": "| fieldsummary maxvals=10"
+            },
+            "type": "ds.chain"
+        },
+        "ds_83PkNwHA": {
+            "name": "Table search error",
+            "options": {
+                "query": "index=* sourcetype=* error* OR fail* OR failure* OR critical OR *issue* OR problem \n| eval Date=strftime(_time, \"%m/%d/%Y %I:%M%p %A\")\n| eval process_name=coalesce(NAME, process_name, service, service_name),\n        process_version=coalesce(VERSION, \"Unknown\"),\n        process_state=coalesce(state, \"Unknown\"),\n        process_error=coalesce(error, \"None\"),\n        process_user=coalesce(USER, \"Unknown\"),\n        process_source=coalesce(source, \"Unknown\")\n|stats count by process_name COMMAND process_version process_state process_error process_user process_source",
+                "queryParameters": {
+                    "earliest": "$global_time.earliest$",
+                    "latest": "$global_time.latest$"
+                }
+            },
+            "type": "ds.search"
+        },
+        "ds_EG0lq1pY": {
+            "name": "Successfull Installs 2 search",
+            "options": {
+                "extend": "ds_tnlYyaz4",
+                "query": "| fieldsummary maxvals=10"
+            },
+            "type": "ds.chain"
+        },
+        "ds_ERrrGpzJ": {
+            "name": "Single value search",
+            "options": {
+                "query": "index=* sourcetype=*\n| eval is_problem=if(match(_raw, \"fail|failure|critical|issue|problem\"), 1, 0)\n| eventstats count as Total_Events, sum(is_problem) as Problematic_Events\n| eval Problem_Percentage = round((Problematic_Events / Total_Events) * 100, 2)\n| eval Grade=case(\n    Problem_Percentage < 5, \"A\",\n    Problem_Percentage >= 5 AND Problem_Percentage < 15, \"B\",\n    Problem_Percentage >= 15 AND Problem_Percentage < 30, \"C\",\n    Problem_Percentage >= 30, \"D\"\n)\n| fields Grade\n| dedup Grade\n| table Grade",
+                "queryParameters": {
+                    "earliest": "-24h@h",
+                    "latest": "now"
+                }
+            },
+            "type": "ds.search"
+        },
+        "ds_Gd1q4DzW": {
+            "name": "System Integrity 1 search",
+            "options": {
+                "query": "index=* source=\"/var/log/install.log\" (\"*security*update*\" OR \"*integrity*\") \n| table _raw",
+                "queryParameters": {
+                    "earliest": "-24h@h",
+                    "latest": "now"
+                }
+            },
+            "type": "ds.search"
+        },
+        "ds_HuwVtlLG": {
+            "name": "Single value search",
+            "options": {
+                "query": "index=* fail  OR failure OR critical OR issue OR problem  \n|  stats count",
+                "queryParameters": {
+                    "earliest": "$global_time.earliest$",
+                    "latest": "$global_time.latest$"
+                }
+            },
+            "type": "ds.search"
+        },
+        "ds_K1A2eqzV": {
+            "name": "Pie chart search",
+            "options": {
+                "query": "index=* source=\"/var/log/install.log\" \n| dedup pid\n| stats count by installAuth",
+                "queryParameters": {
+                    "earliest": "-30d@d",
+                    "latest": "now"
+                }
+            },
+            "type": "ds.search"
+        },
+        "ds_PtNUyrqJ": {
+            "name": "Search_1",
+            "options": {
+                "enableSmartSources": true,
+                "query": "index=* fail  OR failure OR critical OR issue OR problem  \n| rex field=_raw \"(?<error_code>\\b(?:0|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25|26|27|28|29|30|31|32|33|34|35|45|47|48|49|50|51|52|53|54|55|56|57)\\b)\"\n| eval error_name=case(\n    error_code=\"0\", \"OK\",\n    error_code=\"1\", \"EPERM\",\n    error_code=\"2\", \"ENOENT\",\n    error_code=\"3\", \"ESRCH\",\n    error_code=\"4\", \"EINTR\",\n    error_code=\"5\", \"EIO\",\n    error_code=\"6\", \"ENXIO\",\n    error_code=\"7\", \"E2BIG\",\n    error_code=\"8\", \"ENOEXEC\",\n    error_code=\"9\", \"EBADF\",\n    error_code=\"10\", \"ECHILD\",\n    error_code=\"11\", \"EAGAIN or EWOULDBLOCK\",\n    error_code=\"12\", \"ENOMEM\",\n    error_code=\"13\", \"EACCES\",\n    error_code=\"14\", \"EFAULT\",\n    error_code=\"15\", \"ENOTBLK\",\n    error_code=\"16\", \"EBUSY\",\n    error_code=\"17\", \"EEXIST\",\n    error_code=\"18\", \"EXDEV\",\n    error_code=\"19\", \"ENODEV\",\n    error_code=\"20\", \"ENOTDIR\",\n    error_code=\"21\", \"EISDIR\",\n    error_code=\"22\", \"EINVAL\",\n    error_code=\"23\", \"ENFILE\",\n    error_code=\"24\", \"EMFILE\",\n    error_code=\"25\", \"ENOTTY\",\n    error_code=\"26\", \"ETXTBSY\",\n    error_code=\"27\", \"EFBIG\",\n    error_code=\"28\", \"ENOSPC\",\n    error_code=\"29\", \"ESPIPE\",\n    error_code=\"30\", \"EROFS\",\n    error_code=\"31\", \"EMLINK\",\n    error_code=\"32\", \"EPIPE\",\n    error_code=\"33\", \"EDOM\",\n    error_code=\"34\", \"ERANGE\",\n    error_code=\"35\", \"EDEADLK\",\n    error_code=\"45\", \"EOPNOTSUPP\",\n    error_code=\"47\", \"EAFNOSUPPORT\",\n    error_code=\"48\", \"EADDRINUSE\",\n    error_code=\"49\", \"EADDRNOTAVAIL\",\n    error_code=\"50\", \"ENETDOWN\",\n    error_code=\"51\", \"ENETUNREACH\",\n    error_code=\"52\", \"ENETRESET\",\n    error_code=\"53\", \"ECONNABORTED\",\n    error_code=\"54\", \"ECONNRESET\",\n    error_code=\"55\", \"ENOBUFS\",\n    error_code=\"56\", \"EISCONN\",\n    error_code=\"57\", \"ENOTCONN\"\n)\n| eval error_meaning=case(\n    error_code=\"0\", \"No error; operation completed successfully.\",\n    error_code=\"1\", \"Operation not permitted (insufficient permissions).\",\n    error_code=\"2\", \"No such file or directory.\",\n    error_code=\"3\", \"No such process.\",\n    error_code=\"4\", \"Interrupted system call.\",\n    error_code=\"5\", \"Input/output error.\",\n    error_code=\"6\", \"No such device or address.\",\n    error_code=\"7\", \"Argument list too long.\",\n    error_code=\"8\", \"Exec format error (invalid executable).\",\n    error_code=\"9\", \"Bad file descriptor.\",\n    error_code=\"10\", \"No child processes.\",\n    error_code=\"11\", \"Resource temporarily unavailable; try again.\",\n    error_code=\"12\", \"Out of memory.\",\n    error_code=\"13\", \"Permission denied.\",\n    error_code=\"14\", \"Bad address.\",\n    error_code=\"15\", \"Block device required.\",\n    error_code=\"16\", \"Device or resource busy.\",\n    error_code=\"17\", \"File exists.\",\n    error_code=\"18\", \"Cross-device link (operation not supported across file systems).\",\n    error_code=\"19\", \"No such device.\",\n    error_code=\"20\", \"Not a directory.\",\n    error_code=\"21\", \"Is a directory (operation not allowed on a directory).\",\n    error_code=\"22\", \"Invalid argument.\",\n    error_code=\"23\", \"File table overflow (too many open files at the system level).\",\n    error_code=\"24\", \"Too many open files.\",\n    error_code=\"25\", \"Inappropriate ioctl for device.\",\n    error_code=\"26\", \"Text file busy (cannot modify an executable while it's running).\",\n    error_code=\"27\", \"File too large.\",\n    error_code=\"28\", \"No space left on device.\",\n    error_code=\"29\", \"Illegal seek.\",\n    error_code=\"30\", \"Read-only file system.\",\n    error_code=\"31\", \"Too many links.\",\n    error_code=\"32\", \"Broken pipe (no process to read/write).\",\n    error_code=\"33\", \"Numerical argument out of domain.\",\n    error_code=\"34\", \"Result too large.\",\n    error_code=\"35\", \"Resource deadlock avoided.\",\n    error_code=\"45\", \"Operation not supported.\",\n    error_code=\"47\", \"Address family not supported by protocol family.\",\n    error_code=\"48\", \"Address already in use.\",\n    error_code=\"49\", \"Cannot assign requested address.\",\n    error_code=\"50\", \"Network is down.\",\n    error_code=\"51\", \"Network is unreachable.\",\n    error_code=\"52\", \"Connection dropped on network reset.\",\n    error_code=\"53\", \"Software caused connection abort.\",\n    error_code=\"54\", \"Connection reset by peer.\",\n    error_code=\"55\", \"No buffer space available.\",\n    error_code=\"56\", \"Socket is already connected.\",\n    error_code=\"57\", \"Socket is not connected.\"\n)\n| table _time error_code error_name error_meaning _raw",
+                "queryParameters": {
+                    "earliest": "$global_time.earliest$",
+                    "latest": "$global_time.latest$"
+                }
+            },
+            "type": "ds.search"
+        },
+        "ds_RrGUkaGV": {
+            "name": "Pie chart search process",
+            "options": {
+                "query": "index=* sourcetype=* error* OR fail* OR failure* OR critical OR *issue* OR problem \n| eval Date=strftime(_time, \"%m/%d/%Y %I:%M%p %A\")\n| eval process_name=coalesce(NAME, process_name, service, service_name),\n        process_version=coalesce(VERSION, \"Unknown\"),\n        process_state=coalesce(state, \"Unknown\"),\n        process_error=coalesce(error, \"None\"),\n        process_user=coalesce(USER, \"Unknown\"),\n        process_source=coalesce(source, \"Unknown\")\n|stats count by process_name",
+                "queryParameters": {
+                    "earliest": "-24h@h",
+                    "latest": "now"
+                }
+            },
+            "type": "ds.search"
+        },
+        "ds_SH92T2PV": {
+            "name": "Table search software version",
+            "options": {
+                "query": "index=main sourcetype=package   ARCH=$dd_6S6g3d85$ | eval Date=strftime(_time, \"%m/%d/%Y %H:%M:%S %Z\")  | eval PackageDetails = NAME . \" (\" . VERSION . \")\"  \n| dedup PackageDetails | table PackageDetails",
+                "queryParameters": {
+                    "earliest": "$global_time.earliest$",
+                    "latest": "$global_time.latest$"
+                }
+            },
+            "type": "ds.search"
+        },
+        "ds_T8bLDHK4": {
+            "name": "Events 2 search",
+            "options": {
+                "extend": "ds_lC0dIMun",
+                "query": ""
+            },
+            "type": "ds.chain"
+        },
+        "ds_TaIpZDgR": {
+            "name": "Search_7",
+            "options": {
+                "query": "index=* fail  OR failure OR critical OR issue OR problem \n| dedup sourcetype\n| table sourcetype\n| sort - count",
+                "queryParameters": {
+                    "earliest": "$global_time.earliest$",
+                    "latest": "$global_time.latest$"
+                }
+            },
+            "type": "ds.search"
+        },
+        "ds_TkN9nJbX": {
+            "name": "Search_6",
+            "options": {
+                "query": "index=* sourcetype=*\n| rex field=_raw \"(?<error_code>\\b(?:0|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25|26|27|28|29|30|31|32|33|34|35|45|47|48|49|50|51|52|53|54|55|56|57)\\b)\"\n| eval error_name=case(\n    error_code=\"0\", \"OK\",\n    error_code=\"1\", \"EPERM\",\n    error_code=\"2\", \"ENOENT\",\n    error_code=\"3\", \"ESRCH\",\n    error_code=\"4\", \"EINTR\",\n    error_code=\"5\", \"EIO\",\n    error_code=\"6\", \"ENXIO\",\n    error_code=\"7\", \"E2BIG\",\n    error_code=\"8\", \"ENOEXEC\",\n    error_code=\"9\", \"EBADF\",\n    error_code=\"10\", \"ECHILD\",\n    error_code=\"11\", \"EAGAIN or EWOULDBLOCK\",\n    error_code=\"12\", \"ENOMEM\",\n    error_code=\"13\", \"EACCES\",\n    error_code=\"14\", \"EFAULT\",\n    error_code=\"15\", \"ENOTBLK\",\n    error_code=\"16\", \"EBUSY\",\n    error_code=\"17\", \"EEXIST\",\n    error_code=\"18\", \"EXDEV\",\n    error_code=\"19\", \"ENODEV\",\n    error_code=\"20\", \"ENOTDIR\",\n    error_code=\"21\", \"EISDIR\",\n    error_code=\"22\", \"EINVAL\",\n    error_code=\"23\", \"ENFILE\",\n    error_code=\"24\", \"EMFILE\",\n    error_code=\"25\", \"ENOTTY\",\n    error_code=\"26\", \"ETXTBSY\",\n    error_code=\"27\", \"EFBIG\",\n    error_code=\"28\", \"ENOSPC\",\n    error_code=\"29\", \"ESPIPE\",\n    error_code=\"30\", \"EROFS\",\n    error_code=\"31\", \"EMLINK\",\n    error_code=\"32\", \"EPIPE\",\n    error_code=\"33\", \"EDOM\",\n    error_code=\"34\", \"ERANGE\",\n    error_code=\"35\", \"EDEADLK\",\n    error_code=\"45\", \"EOPNOTSUPP\",\n    error_code=\"47\", \"EAFNOSUPPORT\",\n    error_code=\"48\", \"EADDRINUSE\",\n    error_code=\"49\", \"EADDRNOTAVAIL\",\n    error_code=\"50\", \"ENETDOWN\",\n    error_code=\"51\", \"ENETUNREACH\",\n    error_code=\"52\", \"ENETRESET\",\n    error_code=\"53\", \"ECONNABORTED\",\n    error_code=\"54\", \"ECONNRESET\",\n    error_code=\"55\", \"ENOBUFS\",\n    error_code=\"56\", \"EISCONN\",\n    error_code=\"57\", \"ENOTCONN\"\n)\n| eval error_meaning=case(\n    error_code=\"0\", \"No error; operation completed successfully.\",\n    error_code=\"1\", \"Operation not permitted (insufficient permissions).\",\n    error_code=\"2\", \"No such file or directory.\",\n    error_code=\"3\", \"No such process.\",\n    error_code=\"4\", \"Interrupted system call.\",\n    error_code=\"5\", \"Input/output error.\",\n    error_code=\"6\", \"No such device or address.\",\n    error_code=\"7\", \"Argument list too long.\",\n    error_code=\"8\", \"Exec format error (invalid executable).\",\n    error_code=\"9\", \"Bad file descriptor.\",\n    error_code=\"10\", \"No child processes.\",\n    error_code=\"11\", \"Resource temporarily unavailable; try again.\",\n    error_code=\"12\", \"Out of memory.\",\n    error_code=\"13\", \"Permission denied.\",\n    error_code=\"14\", \"Bad address.\",\n    error_code=\"15\", \"Block device required.\",\n    error_code=\"16\", \"Device or resource busy.\",\n    error_code=\"17\", \"File exists.\",\n    error_code=\"18\", \"Cross-device link (operation not supported across file systems).\",\n    error_code=\"19\", \"No such device.\",\n    error_code=\"20\", \"Not a directory.\",\n    error_code=\"21\", \"Is a directory (operation not allowed on a directory).\",\n    error_code=\"22\", \"Invalid argument.\",\n    error_code=\"23\", \"File table overflow (too many open files at the system level).\",\n    error_code=\"24\", \"Too many open files.\",\n    error_code=\"25\", \"Inappropriate ioctl for device.\",\n    error_code=\"26\", \"Text file busy (cannot modify an executable while it's running).\",\n    error_code=\"27\", \"File too large.\",\n    error_code=\"28\", \"No space left on device.\",\n    error_code=\"29\", \"Illegal seek.\",\n    error_code=\"30\", \"Read-only file system.\",\n    error_code=\"31\", \"Too many links.\",\n    error_code=\"32\", \"Broken pipe (no process to read/write).\",\n    error_code=\"33\", \"Numerical argument out of domain.\",\n    error_code=\"34\", \"Result too large.\",\n    error_code=\"35\", \"Resource deadlock avoided.\",\n    error_code=\"45\", \"Operation not supported.\",\n    error_code=\"47\", \"Address family not supported by protocol family.\",\n    error_code=\"48\", \"Address already in use.\",\n    error_code=\"49\", \"Cannot assign requested address.\",\n    error_code=\"50\", \"Network is down.\",\n    error_code=\"51\", \"Network is unreachable.\",\n    error_code=\"52\", \"Connection dropped on network reset.\",\n    error_code=\"53\", \"Software caused connection abort.\",\n    error_code=\"54\", \"Connection reset by peer.\",\n    error_code=\"55\", \"No buffer space available.\",\n    error_code=\"56\", \"Socket is already connected.\",\n    error_code=\"57\", \"Socket is not connected.\"\n)\n|  search NOT error_code=\"0\"\n| dedup error_code\n| table error_code\n|  sort +error_code",
+                "queryParameters": {
+                    "earliest": "$global_time.earliest$",
+                    "latest": "$global_time.latest$"
+                }
+            },
+            "type": "ds.search"
+        },
+        "ds_UDwK7Pmc": {
+            "name": "Pie chart search",
+            "options": {
+                "query": "index=* sourcetype=*\n| rex field=_raw \"(?<error_code>\\b(?:0|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25|26|27|28|29|30|31|32|33|34|35|45|47|48|49|50|51|52|53|54|55|56|57)\\b)\"\n| eval error_name=case(\n    error_code=\"0\", \"OK\",\n    error_code=\"1\", \"EPERM\",\n    error_code=\"2\", \"ENOENT\",\n    error_code=\"3\", \"ESRCH\",\n    error_code=\"4\", \"EINTR\",\n    error_code=\"5\", \"EIO\",\n    error_code=\"6\", \"ENXIO\",\n    error_code=\"7\", \"E2BIG\",\n    error_code=\"8\", \"ENOEXEC\",\n    error_code=\"9\", \"EBADF\",\n    error_code=\"10\", \"ECHILD\",\n    error_code=\"11\", \"EAGAIN or EWOULDBLOCK\",\n    error_code=\"12\", \"ENOMEM\",\n    error_code=\"13\", \"EACCES\",\n    error_code=\"14\", \"EFAULT\",\n    error_code=\"15\", \"ENOTBLK\",\n    error_code=\"16\", \"EBUSY\",\n    error_code=\"17\", \"EEXIST\",\n    error_code=\"18\", \"EXDEV\",\n    error_code=\"19\", \"ENODEV\",\n    error_code=\"20\", \"ENOTDIR\",\n    error_code=\"21\", \"EISDIR\",\n    error_code=\"22\", \"EINVAL\",\n    error_code=\"23\", \"ENFILE\",\n    error_code=\"24\", \"EMFILE\",\n    error_code=\"25\", \"ENOTTY\",\n    error_code=\"26\", \"ETXTBSY\",\n    error_code=\"27\", \"EFBIG\",\n    error_code=\"28\", \"ENOSPC\",\n    error_code=\"29\", \"ESPIPE\",\n    error_code=\"30\", \"EROFS\",\n    error_code=\"31\", \"EMLINK\",\n    error_code=\"32\", \"EPIPE\",\n    error_code=\"33\", \"EDOM\",\n    error_code=\"34\", \"ERANGE\",\n    error_code=\"35\", \"EDEADLK\",\n    error_code=\"45\", \"EOPNOTSUPP\",\n    error_code=\"47\", \"EAFNOSUPPORT\",\n    error_code=\"48\", \"EADDRINUSE\",\n    error_code=\"49\", \"EADDRNOTAVAIL\",\n    error_code=\"50\", \"ENETDOWN\",\n    error_code=\"51\", \"ENETUNREACH\",\n    error_code=\"52\", \"ENETRESET\",\n    error_code=\"53\", \"ECONNABORTED\",\n    error_code=\"54\", \"ECONNRESET\",\n    error_code=\"55\", \"ENOBUFS\",\n    error_code=\"56\", \"EISCONN\",\n    error_code=\"57\", \"ENOTCONN\"\n)\n| eval error_meaning=case(\n    error_code=\"0\", \"No error; operation completed successfully.\",\n    error_code=\"1\", \"Operation not permitted (insufficient permissions).\",\n    error_code=\"2\", \"No such file or directory.\",\n    error_code=\"3\", \"No such process.\",\n    error_code=\"4\", \"Interrupted system call.\",\n    error_code=\"5\", \"Input/output error.\",\n    error_code=\"6\", \"No such device or address.\",\n    error_code=\"7\", \"Argument list too long.\",\n    error_code=\"8\", \"Exec format error (invalid executable).\",\n    error_code=\"9\", \"Bad file descriptor.\",\n    error_code=\"10\", \"No child processes.\",\n    error_code=\"11\", \"Resource temporarily unavailable; try again.\",\n    error_code=\"12\", \"Out of memory.\",\n    error_code=\"13\", \"Permission denied.\",\n    error_code=\"14\", \"Bad address.\",\n    error_code=\"15\", \"Block device required.\",\n    error_code=\"16\", \"Device or resource busy.\",\n    error_code=\"17\", \"File exists.\",\n    error_code=\"18\", \"Cross-device link (operation not supported across file systems).\",\n    error_code=\"19\", \"No such device.\",\n    error_code=\"20\", \"Not a directory.\",\n    error_code=\"21\", \"Is a directory (operation not allowed on a directory).\",\n    error_code=\"22\", \"Invalid argument.\",\n    error_code=\"23\", \"File table overflow (too many open files at the system level).\",\n    error_code=\"24\", \"Too many open files.\",\n    error_code=\"25\", \"Inappropriate ioctl for device.\",\n    error_code=\"26\", \"Text file busy (cannot modify an executable while it's running).\",\n    error_code=\"27\", \"File too large.\",\n    error_code=\"28\", \"No space left on device.\",\n    error_code=\"29\", \"Illegal seek.\",\n    error_code=\"30\", \"Read-only file system.\",\n    error_code=\"31\", \"Too many links.\",\n    error_code=\"32\", \"Broken pipe (no process to read/write).\",\n    error_code=\"33\", \"Numerical argument out of domain.\",\n    error_code=\"34\", \"Result too large.\",\n    error_code=\"35\", \"Resource deadlock avoided.\",\n    error_code=\"45\", \"Operation not supported.\",\n    error_code=\"47\", \"Address family not supported by protocol family.\",\n    error_code=\"48\", \"Address already in use.\",\n    error_code=\"49\", \"Cannot assign requested address.\",\n    error_code=\"50\", \"Network is down.\",\n    error_code=\"51\", \"Network is unreachable.\",\n    error_code=\"52\", \"Connection dropped on network reset.\",\n    error_code=\"53\", \"Software caused connection abort.\",\n    error_code=\"54\", \"Connection reset by peer.\",\n    error_code=\"55\", \"No buffer space available.\",\n    error_code=\"56\", \"Socket is already connected.\",\n    error_code=\"57\", \"Socket is not connected.\"\n)\n|  search NOT error_code=\"0\"\n|  search error_code=*\n| stats count by error_code",
+                "queryParameters": {
+                    "earliest": "-3d@d",
+                    "latest": "now"
+                }
+            },
+            "type": "ds.search"
+        },
+        "ds_YlzG3AnP": {
+            "name": "Search_4",
+            "options": {
+                "query": "index=* sourcetype=*\n| rex field=_raw \"requestor = (?<process>[^\\[]+)\\[(?<pid>\\d+)\\], error = (?<error_code>\\d+)\"\n| rex field=_raw \"name = (?<service>[a-zA-Z0-9\\.\\-_]+)\"\n| stats count by process pid service error_code\n| sort - count\n| eval error_meaning=case(\n    error_code=\"0\", \"No error; operation completed successfully.\",\n    error_code=\"1\", \"Operation not permitted (insufficient permissions).\",\n    error_code=\"2\", \"No such file or directory.\",\n    error_code=\"3\", \"No such process.\",\n    error_code=\"4\", \"Interrupted system call.\",\n    error_code=\"5\", \"Input/output error.\",\n    error_code=\"6\", \"No such device or address.\",\n    error_code=\"7\", \"Argument list too long.\",\n    error_code=\"8\", \"Exec format error (invalid executable).\",\n    error_code=\"9\", \"Bad file descriptor.\",\n    error_code=\"10\", \"No child processes.\",\n    error_code=\"11\", \"Resource temporarily unavailable; try again.\",\n    error_code=\"12\", \"Out of memory.\",\n    error_code=\"13\", \"Permission denied.\",\n    error_code=\"14\", \"Bad address.\",\n    error_code=\"15\", \"Block device required.\",\n    error_code=\"16\", \"Device or resource busy.\",\n    error_code=\"17\", \"File exists.\",\n    error_code=\"18\", \"Cross-device link (operation not supported across file systems).\",\n    error_code=\"19\", \"No such device.\",\n    error_code=\"20\", \"Not a directory.\",\n    error_code=\"21\", \"Is a directory (operation not allowed on a directory).\",\n    error_code=\"22\", \"Invalid argument.\",\n    error_code=\"23\", \"File table overflow (too many open files at the system level).\",\n    error_code=\"24\", \"Too many open files.\",\n    error_code=\"25\", \"Inappropriate ioctl for device.\",\n    error_code=\"26\", \"Text file busy (cannot modify an executable while it's running).\",\n    error_code=\"27\", \"File too large.\",\n    error_code=\"28\", \"No space left on device.\",\n    error_code=\"29\", \"Illegal seek.\",\n    error_code=\"30\", \"Read-only file system.\",\n    error_code=\"31\", \"Too many links.\",\n    error_code=\"32\", \"Broken pipe (no process to read/write).\",\n    error_code=\"33\", \"Numerical argument out of domain.\",\n    error_code=\"34\", \"Result too large.\",\n    error_code=\"35\", \"Resource deadlock avoided.\",\n    error_code=\"45\", \"Operation not supported.\",\n    error_code=\"47\", \"Address family not supported by protocol family.\",\n    error_code=\"48\", \"Address already in use.\",\n    error_code=\"49\", \"Cannot assign requested address.\",\n    error_code=\"50\", \"Network is down.\",\n    error_code=\"51\", \"Network is unreachable.\",\n    error_code=\"52\", \"Connection dropped on network reset.\",\n    error_code=\"53\", \"Software caused connection abort.\",\n    error_code=\"54\", \"Connection reset by peer.\",\n    error_code=\"55\", \"No buffer space available.\",\n    error_code=\"56\", \"Socket is already connected.\",\n    error_code=\"57\", \"Socket is not connected.\"\n)\n| eval error_description=case(\n    error_code=\"159\", \"Sandbox restriction - insufficient permissions\",\n    error_code=\"3\", \"No such process - service unavailable\",\n    error_code=\"13\", \"Permission denied\",\n    1=1, \"Unknown error\"\n)\n| eval fix_recommendation=case(\n    error_code=\"1\", \"Run the command with elevated privileges using sudo.\",\n    error_code=\"2\", \"Check if the file/directory exists and verify the path.\",\n    error_code=\"3\", \"Ensure the process or service is running before executing the command.\",\n    error_code=\"13\", \"Check file or directory permissions and change ownership if necessary.\",\n    error_code=\"16\", \"Close any processes using the resource and try again.\",\n    error_code=\"17\", \"Ensure you're not overwriting an existing file or directory.\",\n    error_code=\"24\", \"Check and increase open file limits using ulimit -n.\",\n    error_code=\"28\", \"Free up disk space on the device before proceeding.\",\n    error_code=\"30\", \"Ensure you're writing to a writable filesystem and not a mounted read-only partition.\",\n    error_code=\"48\", \"Make sure another process isn’t already using the same network port.\",\n    error_code=\"49\", \"Verify the network interface is up and the IP address is available.\",\n    error_code=\"50\", \"Check network connections and restart the network interface if needed.\",\n    error_code=\"54\", \"Investigate potential network disruptions or client-server connectivity issues.\",\n    error_code=\"159\", \"Check application sandboxing policies and ensure the process has necessary permissions.\",\n    1=1, \"Refer to system logs for more details on the error.\"\n)\n| search NOT error_code=0\n| search error_code=$dd_Hu6OVCrU$\n| stats  values(process) as process dc(pid) as \"# of running Process\" values(error_code) as error_code values(error_description) as error_description values(fix_recommendation) as fix by service",
+                "queryParameters": {
+                    "earliest": "$global_time.earliest$",
+                    "latest": "$global_time.latest$"
+                }
+            },
+            "type": "ds.search"
+        },
+        "ds_ZFPtbzVm": {
+            "name": "Suspicious Network Traffic Analysis with Data Transfer Metrics search",
+            "options": {
+                "query": "index=main sourcetype=netstat (src=*.*.*.* AND dest=*.*.*.*)\n| eval Date=strftime(_time, \"%m/%d/%Y %I:%M%p  %A\") \n| eval src_ip=split(src, \".\") \n| eval dest_ip=split(dest, \".\") \n| eval internal_traffic=if(cidrmatch(\"192.168.0.0/16\", src) AND cidrmatch(\"192.168.0.0/16\", dest), \"internal\", \"external\")\n| stats sum(Recv_Q) AS total_data_received sum(Send_Q) AS total_data_sent BY src, dest, dest_port, state, internal_traffic Date\n| eval data_flow=if(internal_traffic=\"external\", \"external_traffic\", \"internal_traffic\")\n| where internal_traffic=\"external\" OR total_data_received > 0 OR total_data_sent > 0\n| table Date src dest dest_port state internal_traffic total_data_received total_data_sent data_flow\n| sort - total_data_sent",
+                "queryParameters": {
+                    "earliest": "-7d@h",
+                    "latest": "now"
+                }
+            },
+            "type": "ds.search"
+        },
+        "ds_ZdWwUaBF": {
+            "name": "Search_5",
+            "options": {
+                "query": "index=* sourcetype=*\n| rex field=_raw \"(?<error_code>\\b(?:0|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25|26|27|28|29|30|31|32|33|34|35|45|47|48|49|50|51|52|53|54|55|56|57)\\b)\"\n| eval error_name=case(\n    error_code=\"0\", \"OK\",\n    error_code=\"1\", \"EPERM\",\n    error_code=\"2\", \"ENOENT\",\n    error_code=\"3\", \"ESRCH\",\n    error_code=\"4\", \"EINTR\",\n    error_code=\"5\", \"EIO\",\n    error_code=\"6\", \"ENXIO\",\n    error_code=\"7\", \"E2BIG\",\n    error_code=\"8\", \"ENOEXEC\",\n    error_code=\"9\", \"EBADF\",\n    error_code=\"10\", \"ECHILD\",\n    error_code=\"11\", \"EAGAIN or EWOULDBLOCK\",\n    error_code=\"12\", \"ENOMEM\",\n    error_code=\"13\", \"EACCES\",\n    error_code=\"14\", \"EFAULT\",\n    error_code=\"15\", \"ENOTBLK\",\n    error_code=\"16\", \"EBUSY\",\n    error_code=\"17\", \"EEXIST\",\n    error_code=\"18\", \"EXDEV\",\n    error_code=\"19\", \"ENODEV\",\n    error_code=\"20\", \"ENOTDIR\",\n    error_code=\"21\", \"EISDIR\",\n    error_code=\"22\", \"EINVAL\",\n    error_code=\"23\", \"ENFILE\",\n    error_code=\"24\", \"EMFILE\",\n    error_code=\"25\", \"ENOTTY\",\n    error_code=\"26\", \"ETXTBSY\",\n    error_code=\"27\", \"EFBIG\",\n    error_code=\"28\", \"ENOSPC\",\n    error_code=\"29\", \"ESPIPE\",\n    error_code=\"30\", \"EROFS\",\n    error_code=\"31\", \"EMLINK\",\n    error_code=\"32\", \"EPIPE\",\n    error_code=\"33\", \"EDOM\",\n    error_code=\"34\", \"ERANGE\",\n    error_code=\"35\", \"EDEADLK\",\n    error_code=\"45\", \"EOPNOTSUPP\",\n    error_code=\"47\", \"EAFNOSUPPORT\",\n    error_code=\"48\", \"EADDRINUSE\",\n    error_code=\"49\", \"EADDRNOTAVAIL\",\n    error_code=\"50\", \"ENETDOWN\",\n    error_code=\"51\", \"ENETUNREACH\",\n    error_code=\"52\", \"ENETRESET\",\n    error_code=\"53\", \"ECONNABORTED\",\n    error_code=\"54\", \"ECONNRESET\",\n    error_code=\"55\", \"ENOBUFS\",\n    error_code=\"56\", \"EISCONN\",\n    error_code=\"57\", \"ENOTCONN\"\n)\n| eval error_meaning=case(\n    error_code=\"0\", \"No error; operation completed successfully.\",\n    error_code=\"1\", \"Operation not permitted (insufficient permissions).\",\n    error_code=\"2\", \"No such file or directory.\",\n    error_code=\"3\", \"No such process.\",\n    error_code=\"4\", \"Interrupted system call.\",\n    error_code=\"5\", \"Input/output error.\",\n    error_code=\"6\", \"No such device or address.\",\n    error_code=\"7\", \"Argument list too long.\",\n    error_code=\"8\", \"Exec format error (invalid executable).\",\n    error_code=\"9\", \"Bad file descriptor.\",\n    error_code=\"10\", \"No child processes.\",\n    error_code=\"11\", \"Resource temporarily unavailable; try again.\",\n    error_code=\"12\", \"Out of memory.\",\n    error_code=\"13\", \"Permission denied.\",\n    error_code=\"14\", \"Bad address.\",\n    error_code=\"15\", \"Block device required.\",\n    error_code=\"16\", \"Device or resource busy.\",\n    error_code=\"17\", \"File exists.\",\n    error_code=\"18\", \"Cross-device link (operation not supported across file systems).\",\n    error_code=\"19\", \"No such device.\",\n    error_code=\"20\", \"Not a directory.\",\n    error_code=\"21\", \"Is a directory (operation not allowed on a directory).\",\n    error_code=\"22\", \"Invalid argument.\",\n    error_code=\"23\", \"File table overflow (too many open files at the system level).\",\n    error_code=\"24\", \"Too many open files.\",\n    error_code=\"25\", \"Inappropriate ioctl for device.\",\n    error_code=\"26\", \"Text file busy (cannot modify an executable while it's running).\",\n    error_code=\"27\", \"File too large.\",\n    error_code=\"28\", \"No space left on device.\",\n    error_code=\"29\", \"Illegal seek.\",\n    error_code=\"30\", \"Read-only file system.\",\n    error_code=\"31\", \"Too many links.\",\n    error_code=\"32\", \"Broken pipe (no process to read/write).\",\n    error_code=\"33\", \"Numerical argument out of domain.\",\n    error_code=\"34\", \"Result too large.\",\n    error_code=\"35\", \"Resource deadlock avoided.\",\n    error_code=\"45\", \"Operation not supported.\",\n    error_code=\"47\", \"Address family not supported by protocol family.\",\n    error_code=\"48\", \"Address already in use.\",\n    error_code=\"49\", \"Cannot assign requested address.\",\n    error_code=\"50\", \"Network is down.\",\n    error_code=\"51\", \"Network is unreachable.\",\n    error_code=\"52\", \"Connection dropped on network reset.\",\n    error_code=\"53\", \"Software caused connection abort.\",\n    error_code=\"54\", \"Connection reset by peer.\",\n    error_code=\"55\", \"No buffer space available.\",\n    error_code=\"56\", \"Socket is already connected.\",\n    error_code=\"57\", \"Socket is not connected.\"\n    error_code=\"159\", \"Sandbox restriction - insufficient permissions.\"\n)\n| dedup error_code\n| table error_code\n| sort + error_code",
+                "queryParameters": {
+                    "earliest": "$global_time.earliest$",
+                    "latest": "$global_time.latest$"
+                }
+            },
+            "type": "ds.search"
+        },
+        "ds_bZNrR49f": {
+            "name": "Packages Downloaded from Web search",
+            "options": {
+                "query": "index=* sourcetype=*\n| search SUDistributionPackageURLString!=\"\"\n| table _time SUDistributionPackageURLString",
+                "queryParameters": {
+                    "earliest": "-24h@h",
+                    "latest": "now"
+                }
+            },
+            "type": "ds.search"
+        },
+        "ds_cg0j4Dlc": {
+            "name": "Column chart search",
+            "options": {
+                "query": "index=* source=\"/var/log/install.log\" (\"failed\" OR \"error\" OR \"unsuccessful\") \n| timechart count by Domain usenull=f",
+                "queryParameters": {
+                    "earliest": "-24h@h",
+                    "latest": "now"
+                }
+            },
+            "type": "ds.search"
+        },
+        "ds_fs56AswB": {
+            "name": "Column chart search",
+            "options": {
+                "query": "index=* source=\"/var/log/install.log\" \n| dedup pid\n| timechart count by installAuth usenull=f",
+                "queryParameters": {
+                    "earliest": "-30d@d",
+                    "latest": "now"
+                }
+            },
+            "type": "ds.search"
+        },
+        "ds_lC0dIMun": {
+            "name": "Events 1 search",
+            "options": {
+                "query": "index=* source=\"/var/log/install.log\" (\"*successfully*installed*\" OR \"*Installation*completed*\") | table _time index app pid What_was_done",
+                "queryParameters": {
+                    "earliest": "0",
+                    "latest": ""
+                }
+            },
+            "type": "ds.search"
+        },
+        "ds_lH047nb0": {
+            "name": "Shows Current Software Version search",
+            "options": {
+                "query": "index=main sourcetype=package   ARCH=* | eval Date=strftime(_time, \"%m/%d/%Y %H:%M:%S %Z\")  | eval PackageDetails = NAME . \" (\" . VERSION . \")\"  \n| dedup ARCH | table ARCH",
+                "queryParameters": {
+                    "earliest": "$global_time.earliest$",
+                    "latest": "$global_time.latest$"
+                }
+            },
+            "type": "ds.search"
+        },
+        "ds_lgh8UxyL": {
+            "name": "Search_3",
+            "options": {
+                "query": "index=* sourcetype=*\n| rex field=_raw \"(?<error_code>\\b(?:0|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25|26|27|28|29|30|31|32|33|34|35|45|47|48|49|50|51|52|53|54|55|56|57)\\b)\"\n| eval error_name=case(\n    error_code=\"0\", \"OK\",\n    error_code=\"1\", \"EPERM\",\n    error_code=\"2\", \"ENOENT\",\n    error_code=\"3\", \"ESRCH\",\n    error_code=\"4\", \"EINTR\",\n    error_code=\"5\", \"EIO\",\n    error_code=\"6\", \"ENXIO\",\n    error_code=\"7\", \"E2BIG\",\n    error_code=\"8\", \"ENOEXEC\",\n    error_code=\"9\", \"EBADF\",\n    error_code=\"10\", \"ECHILD\",\n    error_code=\"11\", \"EAGAIN or EWOULDBLOCK\",\n    error_code=\"12\", \"ENOMEM\",\n    error_code=\"13\", \"EACCES\",\n    error_code=\"14\", \"EFAULT\",\n    error_code=\"15\", \"ENOTBLK\",\n    error_code=\"16\", \"EBUSY\",\n    error_code=\"17\", \"EEXIST\",\n    error_code=\"18\", \"EXDEV\",\n    error_code=\"19\", \"ENODEV\",\n    error_code=\"20\", \"ENOTDIR\",\n    error_code=\"21\", \"EISDIR\",\n    error_code=\"22\", \"EINVAL\",\n    error_code=\"23\", \"ENFILE\",\n    error_code=\"24\", \"EMFILE\",\n    error_code=\"25\", \"ENOTTY\",\n    error_code=\"26\", \"ETXTBSY\",\n    error_code=\"27\", \"EFBIG\",\n    error_code=\"28\", \"ENOSPC\",\n    error_code=\"29\", \"ESPIPE\",\n    error_code=\"30\", \"EROFS\",\n    error_code=\"31\", \"EMLINK\",\n    error_code=\"32\", \"EPIPE\",\n    error_code=\"33\", \"EDOM\",\n    error_code=\"34\", \"ERANGE\",\n    error_code=\"35\", \"EDEADLK\",\n    error_code=\"45\", \"EOPNOTSUPP\",\n    error_code=\"47\", \"EAFNOSUPPORT\",\n    error_code=\"48\", \"EADDRINUSE\",\n    error_code=\"49\", \"EADDRNOTAVAIL\",\n    error_code=\"50\", \"ENETDOWN\",\n    error_code=\"51\", \"ENETUNREACH\",\n    error_code=\"52\", \"ENETRESET\",\n    error_code=\"53\", \"ECONNABORTED\",\n    error_code=\"54\", \"ECONNRESET\",\n    error_code=\"55\", \"ENOBUFS\",\n    error_code=\"56\", \"EISCONN\",\n    error_code=\"57\", \"ENOTCONN\"\n)\n| eval error_meaning=case(\n    error_code=\"0\", \"No error; operation completed successfully.\",\n    error_code=\"1\", \"Operation not permitted (insufficient permissions).\",\n    error_code=\"2\", \"No such file or directory.\",\n    error_code=\"3\", \"No such process.\",\n    error_code=\"4\", \"Interrupted system call.\",\n    error_code=\"5\", \"Input/output error.\",\n    error_code=\"6\", \"No such device or address.\",\n    error_code=\"7\", \"Argument list too long.\",\n    error_code=\"8\", \"Exec format error (invalid executable).\",\n    error_code=\"9\", \"Bad file descriptor.\",\n    error_code=\"10\", \"No child processes.\",\n    error_code=\"11\", \"Resource temporarily unavailable; try again.\",\n    error_code=\"12\", \"Out of memory.\",\n    error_code=\"13\", \"Permission denied.\",\n    error_code=\"14\", \"Bad address.\",\n    error_code=\"15\", \"Block device required.\",\n    error_code=\"16\", \"Device or resource busy.\",\n    error_code=\"17\", \"File exists.\",\n    error_code=\"18\", \"Cross-device link (operation not supported across file systems).\",\n    error_code=\"19\", \"No such device.\",\n    error_code=\"20\", \"Not a directory.\",\n    error_code=\"21\", \"Is a directory (operation not allowed on a directory).\",\n    error_code=\"22\", \"Invalid argument.\",\n    error_code=\"23\", \"File table overflow (too many open files at the system level).\",\n    error_code=\"24\", \"Too many open files.\",\n    error_code=\"25\", \"Inappropriate ioctl for device.\",\n    error_code=\"26\", \"Text file busy (cannot modify an executable while it's running).\",\n    error_code=\"27\", \"File too large.\",\n    error_code=\"28\", \"No space left on device.\",\n    error_code=\"29\", \"Illegal seek.\",\n    error_code=\"30\", \"Read-only file system.\",\n    error_code=\"31\", \"Too many links.\",\n    error_code=\"32\", \"Broken pipe (no process to read/write).\",\n    error_code=\"33\", \"Numerical argument out of domain.\",\n    error_code=\"34\", \"Result too large.\",\n    error_code=\"35\", \"Resource deadlock avoided.\",\n    error_code=\"45\", \"Operation not supported.\",\n    error_code=\"47\", \"Address family not supported by protocol family.\",\n    error_code=\"48\", \"Address already in use.\",\n    error_code=\"49\", \"Cannot assign requested address.\",\n    error_code=\"50\", \"Network is down.\",\n    error_code=\"51\", \"Network is unreachable.\",\n    error_code=\"52\", \"Connection dropped on network reset.\",\n    error_code=\"53\", \"Software caused connection abort.\",\n    error_code=\"54\", \"Connection reset by peer.\",\n    error_code=\"55\", \"No buffer space available.\",\n    error_code=\"56\", \"Socket is already connected.\",\n    error_code=\"57\", \"Socket is not connected.\"\n)\n|  search NOT error_code=\"0\"\n|  search error_code=$dd_Hu6OVCrU$\n| timechart count by error_code useother=0 usenull=f\n",
+                "queryParameters": {
+                    "earliest": "$global_time.earliest$",
+                    "latest": "$global_time.latest$"
+                }
+            },
+            "type": "ds.search"
+        },
+        "ds_oTPlWtv4": {
+            "name": "Search_2",
+            "options": {
+                "query": "index=* fail  OR failure OR critical OR issue OR problem  sourcetype=*\n| eval Date=strftime(_time, \"%m/%d/%Y %I:%M%p  %A\")\n| rex field=_raw \"(?<error_code>\\b(?:0|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25|26|27|28|29|30|31|32|33|34|35|45|47|48|49|50|51|52|53|54|55|56|57)\\b)\"\n| eval error_name=case(\n    error_code=\"0\", \"OK\",\n    error_code=\"1\", \"EPERM\",\n    error_code=\"2\", \"ENOENT\",\n    error_code=\"3\", \"ESRCH\",\n    error_code=\"4\", \"EINTR\",\n    error_code=\"5\", \"EIO\",\n    error_code=\"6\", \"ENXIO\",\n    error_code=\"7\", \"E2BIG\",\n    error_code=\"8\", \"ENOEXEC\",\n    error_code=\"9\", \"EBADF\",\n    error_code=\"10\", \"ECHILD\",\n    error_code=\"11\", \"EAGAIN or EWOULDBLOCK\",\n    error_code=\"12\", \"ENOMEM\",\n    error_code=\"13\", \"EACCES\",\n    error_code=\"14\", \"EFAULT\",\n    error_code=\"15\", \"ENOTBLK\",\n    error_code=\"16\", \"EBUSY\",\n    error_code=\"17\", \"EEXIST\",\n    error_code=\"18\", \"EXDEV\",\n    error_code=\"19\", \"ENODEV\",\n    error_code=\"20\", \"ENOTDIR\",\n    error_code=\"21\", \"EISDIR\",\n    error_code=\"22\", \"EINVAL\",\n    error_code=\"23\", \"ENFILE\",\n    error_code=\"24\", \"EMFILE\",\n    error_code=\"25\", \"ENOTTY\",\n    error_code=\"26\", \"ETXTBSY\",\n    error_code=\"27\", \"EFBIG\",\n    error_code=\"28\", \"ENOSPC\",\n    error_code=\"29\", \"ESPIPE\",\n    error_code=\"30\", \"EROFS\",\n    error_code=\"31\", \"EMLINK\",\n    error_code=\"32\", \"EPIPE\",\n    error_code=\"33\", \"EDOM\",\n    error_code=\"34\", \"ERANGE\",\n    error_code=\"35\", \"EDEADLK\",\n    error_code=\"45\", \"EOPNOTSUPP\",\n    error_code=\"47\", \"EAFNOSUPPORT\",\n    error_code=\"48\", \"EADDRINUSE\",\n    error_code=\"49\", \"EADDRNOTAVAIL\",\n    error_code=\"50\", \"ENETDOWN\",\n    error_code=\"51\", \"ENETUNREACH\",\n    error_code=\"52\", \"ENETRESET\",\n    error_code=\"53\", \"ECONNABORTED\",\n    error_code=\"54\", \"ECONNRESET\",\n    error_code=\"55\", \"ENOBUFS\",\n    error_code=\"56\", \"EISCONN\",\n    error_code=\"57\", \"ENOTCONN\"\n)\n| eval error_meaning=case(\n    error_code=\"0\", \"No error; operation completed successfully.\",\n    error_code=\"1\", \"Operation not permitted (insufficient permissions).\",\n    error_code=\"2\", \"No such file or directory.\",\n    error_code=\"3\", \"No such process.\",\n    error_code=\"4\", \"Interrupted system call.\",\n    error_code=\"5\", \"Input/output error.\",\n    error_code=\"6\", \"No such device or address.\",\n    error_code=\"7\", \"Argument list too long.\",\n    error_code=\"8\", \"Exec format error (invalid executable).\",\n    error_code=\"9\", \"Bad file descriptor.\",\n    error_code=\"10\", \"No child processes.\",\n    error_code=\"11\", \"Resource temporarily unavailable; try again.\",\n    error_code=\"12\", \"Out of memory.\",\n    error_code=\"13\", \"Permission denied.\",\n    error_code=\"14\", \"Bad address.\",\n    error_code=\"15\", \"Block device required.\",\n    error_code=\"16\", \"Device or resource busy.\",\n    error_code=\"17\", \"File exists.\",\n    error_code=\"18\", \"Cross-device link (operation not supported across file systems).\",\n    error_code=\"19\", \"No such device.\",\n    error_code=\"20\", \"Not a directory.\",\n    error_code=\"21\", \"Is a directory (operation not allowed on a directory).\",\n    error_code=\"22\", \"Invalid argument.\",\n    error_code=\"23\", \"File table overflow (too many open files at the system level).\",\n    error_code=\"24\", \"Too many open files.\",\n    error_code=\"25\", \"Inappropriate ioctl for device.\",\n    error_code=\"26\", \"Text file busy (cannot modify an executable while it's running).\",\n    error_code=\"27\", \"File too large.\",\n    error_code=\"28\", \"No space left on device.\",\n    error_code=\"29\", \"Illegal seek.\",\n    error_code=\"30\", \"Read-only file system.\",\n    error_code=\"31\", \"Too many links.\",\n    error_code=\"32\", \"Broken pipe (no process to read/write).\",\n    error_code=\"33\", \"Numerical argument out of domain.\",\n    error_code=\"34\", \"Result too large.\",\n    error_code=\"35\", \"Resource deadlock avoided.\",\n    error_code=\"45\", \"Operation not supported.\",\n    error_code=\"47\", \"Address family not supported by protocol family.\",\n    error_code=\"48\", \"Address already in use.\",\n    error_code=\"49\", \"Cannot assign requested address.\",\n    error_code=\"50\", \"Network is down.\",\n    error_code=\"51\", \"Network is unreachable.\",\n    error_code=\"52\", \"Connection dropped on network reset.\",\n    error_code=\"53\", \"Software caused connection abort.\",\n    error_code=\"54\", \"Connection reset by peer.\",\n    error_code=\"55\", \"No buffer space available.\",\n    error_code=\"56\", \"Socket is already connected.\",\n    error_code=\"57\", \"Socket is not connected.\"\n)\n| eval error_resolution=case(\n    error_code=\"1\", \"Check file or directory permissions and run with elevated privileges if required.\",\n    error_code=\"2\", \"Verify the file path and ensure the file or directory exists.\",\n    error_code=\"3\", \"Check for valid process IDs and ensure the process is running.\",\n    error_code=\"4\", \"Retry the operation; consider adding retry logic in case of interruptions.\",\n    error_code=\"5\", \"Check hardware for faults or ensure the storage device is accessible.\",\n    error_code=\"6\", \"Confirm the device or address exists and is properly configured.\",\n    error_code=\"7\", \"Reduce the size of the command-line arguments or use input files.\",\n    error_code=\"8\", \"Ensure the executable file is valid and has the correct permissions.\",\n    error_code=\"9\", \"Validate file descriptors in your program or operation.\",\n    error_code=\"10\", \"Ensure child processes are being managed correctly.\",\n    error_code=\"11\", \"Retry the operation later as resources may temporarily be unavailable.\",\n    error_code=\"12\", \"Close unused applications or processes to free up memory.\",\n    error_code=\"13\", \"Run the operation with sufficient permissions or as the correct user.\",\n    error_code=\"14\", \"Verify that the provided address is valid and accessible.\",\n    error_code=\"15\", \"Ensure the operation is on a block device as required.\",\n    error_code=\"16\", \"Free up the resource or wait until it becomes available.\",\n    error_code=\"17\", \"Avoid creating files with duplicate names in the same location.\",\n    error_code=\"18\", \"Ensure operations are performed within the same file system.\",\n    error_code=\"19\", \"Confirm the device exists and is accessible.\",\n    error_code=\"20\", \"Provide a directory instead of a file for the operation.\",\n    error_code=\"21\", \"Provide a file instead of a directory for the operation.\",\n    error_code=\"22\", \"Validate input arguments for correctness.\",\n    error_code=\"23\", \"Increase the file descriptor limit for the system.\",\n    error_code=\"24\", \"Close unused file descriptors or increase user file limits.\",\n    error_code=\"25\", \"Check the device and its compatibility with the operation.\",\n    error_code=\"26\", \"Wait until the executable is no longer in use.\",\n    error_code=\"27\", \"Split the file or reduce its size to meet file system limits.\",\n    error_code=\"28\", \"Free up space on the storage device.\",\n    error_code=\"29\", \"Use valid file positioning and seek operations.\",\n    error_code=\"30\", \"Ensure the file system is writable.\",\n    error_code=\"31\", \"Reduce the number of links to the file.\",\n    error_code=\"32\", \"Check if the reader process is still active.\",\n    error_code=\"33\", \"Provide valid numerical inputs within the expected range.\",\n    error_code=\"34\", \"Break down calculations into smaller, manageable steps.\",\n    error_code=\"35\", \"Resolve resource conflicts or potential deadlocks.\",\n    error_code=\"45\", \"Ensure the operation is supported by the device or system.\",\n    error_code=\"47\", \"Use a supported address family for the protocol.\",\n    error_code=\"48\", \"Use a different port or release the port currently in use.\",\n    error_code=\"49\", \"Verify that the requested address is valid and available.\",\n    error_code=\"50\", \"Check network interfaces and connectivity.\",\n    error_code=\"51\", \"Ensure the target network is reachable.\",\n    error_code=\"52\", \"Retry the operation after re-establishing the network.\",\n    error_code=\"53\", \"Verify the application is handling connections properly.\",\n    error_code=\"54\", \"Ensure the peer process is active and reachable.\",\n    error_code=\"55\", \"Increase buffer space or reduce concurrent connections.\",\n    error_code=\"56\", \"Avoid attempting to connect a socket that is already connected.\",\n    error_code=\"57\", \"Establish a connection before performing operations on the socket.\"\n) \n| eval fix_recommendation=case(\n    error_code=\"0\", \"No action needed; operation completed successfully.\",\n    error_code=\"1\", \"Run the command with elevated privileges using sudo.\",\n    error_code=\"2\", \"Check if the file/directory exists and verify the path.\",\n    error_code=\"3\", \"Ensure the process or service is running before executing the command.\",\n    error_code=\"4\", \"Retry the operation; consider adding retry logic in case of interruptions.\",\n    error_code=\"5\", \"Check for hardware faults or storage device issues.\",\n    error_code=\"6\", \"Confirm the device or address exists and is properly configured.\",\n    error_code=\"7\", \"Reduce the size of the command-line arguments or use input files.\",\n    error_code=\"8\", \"Ensure the executable file is valid and has the correct permissions.\",\n    error_code=\"9\", \"Validate file descriptors in your program or operation.\",\n    error_code=\"10\", \"Ensure child processes are being managed correctly.\",\n    error_code=\"11\", \"Retry the operation later as resources may temporarily be unavailable.\",\n    error_code=\"12\", \"Close unused applications or processes to free up memory.\",\n    error_code=\"13\", \"Check file or directory permissions and change ownership if necessary.\",\n    error_code=\"14\", \"Verify that the provided address is valid and accessible.\",\n    error_code=\"15\", \"Ensure the operation is on a block device as required.\",\n    error_code=\"16\", \"Close any processes using the resource and try again.\",\n    error_code=\"17\", \"Ensure you're not overwriting an existing file or directory.\",\n    error_code=\"18\", \"Ensure operations are performed within the same file system.\",\n    error_code=\"19\", \"Confirm the device exists and is accessible.\",\n    error_code=\"20\", \"Provide a directory instead of a file for the operation.\",\n    error_code=\"21\", \"Provide a file instead of a directory for the operation.\",\n    error_code=\"22\", \"Validate input arguments for correctness.\",\n    error_code=\"23\", \"Increase the file descriptor limit for the system.\",\n    error_code=\"24\", \"Check and increase open file limits using ulimit -n.\",\n    error_code=\"25\", \"Check the device and its compatibility with the operation.\",\n    error_code=\"26\", \"Wait until the executable is no longer in use.\",\n    error_code=\"27\", \"Split the file or reduce its size to meet file system limits.\",\n    error_code=\"28\", \"Free up disk space on the device before proceeding.\",\n    error_code=\"29\", \"Use valid file positioning and seek operations.\",\n    error_code=\"30\", \"Ensure you're writing to a writable filesystem and not a mounted read-only partition.\",\n    error_code=\"31\", \"Reduce the number of links to the file.\",\n    error_code=\"32\", \"Check if the reader process is still active.\",\n    error_code=\"33\", \"Provide valid numerical inputs within the expected range.\",\n    error_code=\"34\", \"Break down calculations into smaller, manageable steps.\",\n    error_code=\"35\", \"Resolve resource conflicts or potential deadlocks.\",\n    error_code=\"45\", \"Ensure the operation is supported by the device or system.\",\n    error_code=\"47\", \"Use a supported address family for the protocol.\",\n    error_code=\"48\", \"Make sure another process isn’t already using the same network port.\",\n    error_code=\"49\", \"Verify the network interface is up and the IP address is available.\",\n    error_code=\"50\", \"Check network connections and restart the network interface if needed.\",\n    error_code=\"51\", \"Ensure the target network is reachable.\",\n    error_code=\"52\", \"Retry the operation after re-establishing the network.\",\n    error_code=\"53\", \"Verify the application is handling connections properly.\",\n    error_code=\"54\", \"Investigate potential network disruptions or client-server connectivity issues.\",\n    error_code=\"55\", \"Increase buffer space or reduce concurrent connections.\",\n    error_code=\"56\", \"Avoid attempting to connect a socket that is already connected.\",\n    error_code=\"57\", \"Establish a connection before performing operations on the socket.\",\n    1=1, \"Refer to system logs or documentation for further troubleshooting.\"\n)\n| search NOT error_code=0\n|  search error_code=$dd_Hu6OVCrU$\n| table Date error_code error_name error_meaning error_resolution fix_recommendation _raw",
+                "queryParameters": {
+                    "earliest": "$global_time.earliest$",
+                    "latest": "$global_time.latest$"
+                }
+            },
+            "type": "ds.search"
+        },
+        "ds_tJ7DKeLA": {
+            "name": "Table search",
+            "options": {
+                "ref": "MAC OSX Error Codes"
+            },
+            "type": "ds.savedSearch"
+        },
+        "ds_tnlYyaz4": {
+            "name": "Suspicious Failed Installs",
+            "options": {
+                "query": "index=* sourcetype=* error* OR fail* OR failure* OR critical OR *issue* OR problem earliest=-7d\n| eval Date=strftime(_time, \"%m/%d/%Y %I:%M%p %A\")\n| eval process_name=coalesce(NAME, process_name, service, service_name),\n        process_version=coalesce(VERSION, \"Unknown\"),\n        process_state=coalesce(state, \"Unknown\"),\n        process_error=coalesce(error, \"None\"),\n        process_user=coalesce(USER, \"Unknown\"),\n        process_requestor=coalesce(requestor, \"Unknown\"),\n        process_source=coalesce(source, \"Unknown\"),\n        process_command=coalesce(COMMAND, \"Unknown\"),\n        sandbox_restriction=if(like(process_error,\"%Sandbox%\"), \"Yes\", \"No\")\n| eval security_risk=case(\n    sandbox_restriction=\"Yes\", \"Potential Privilege Escalation\",\n    like(process_error, \"%denied%\"), \"Access Control Violation\",\n    like(process_error, \"%segmentation%\"), \"Memory Corruption\",\n    like(process_error, \"%unauthorized%\"), \"Unauthorized Access\",\n    like(process_error, \"%suspicious%\"), \"Possible Malware Activity\",\n    like(process_error, \"%failed authentication%\"), \"Authentication Failure\",\n    like(process_error, \"%root%\"), \"Root-Level Execution Attempt\",\n    like(process_command, \"%sudo%\") OR like(process_command, \"%root%\"), \"Privilege Escalation Attempt\",\n    like(process_requestor, \"%unknown%\"), \"Unknown Process Execution\",\n    1==1, \"Low Risk\"\n)\n| stats \n    count as \"Event Count\",\n    values(Date) as \"Timestamps\",\n    values(process_command) as \"Command Executed\",\n    values(process_user) as \"User\",\n    values(process_requestor) as \"Requestor\",\n    values(process_error) as \"Errors\",\n    values(process_version) as \"Version\",\n    values(process_state) as \"State\",\n    values(process_source) as \"Source Log\",\n    values(security_risk) as \"Security Risk Level\"\n    by process_name\n| sort - \"Security Risk Level\" \"Event Count\"\n| table process_name \"Security Risk Level\" \"Event Count\" \"Timestamps\" \"User\" \"Requestor\" \"Command Executed\" \"Errors\" \"Version\" \"State\" \"Source Log\"",
+                "queryParameters": {
+                    "earliest": "$global_time.earliest$",
+                    "latest": "$global_time.latest$"
+                }
+            },
+            "type": "ds.search"
+        },
+        "ds_tsgCFgZA": {
+            "name": "Successfully Application Updates search",
+            "options": {
+                "query": "index=* source=\"/var/log/install.log\" earliest=-1w@w latest=now\n| stats count values(url) as url by id  version",
+                "queryParameters": {
+                    "earliest": "-24h@h",
+                    "latest": "now"
+                }
+            },
+            "type": "ds.search"
+        },
+        "ds_v1UYmh3M": {
+            "name": "Shows how long it took to install something search",
+            "options": {
+                "query": "index=* source=\"/var/log/install.log\" (\"failed\" OR \"error\" OR \"unsuccessful\") OR \"success*\"\n| eval Date=strftime(_time, \"%m/%d/%Y %H:%M:%S\")\n| rex field=_raw \"^(?:[^\\]\\n]*\\]){3}(?P<Reason>.+)\"\n| rex field=_raw \"^(?:[^ \\n]* ){3}(?P<process>\\w+)\"\n| search UserInfo!=\" \" \n| table date_wday Date Code process Reason",
+                "queryParameters": {
+                    "earliest": "-24h@h",
+                    "latest": "now"
+                }
+            },
+            "type": "ds.search"
+        },
+        "ds_x6A9Ma8m": {
+            "name": "Shows timeline of failed installs - Table search",
+            "options": {
+                "query": "index=* source=\"/var/log/install.log\" (\"failed\" OR \"error\" OR \"unsuccessful\") \n| timechart count by UserInfo usenull=f",
+                "queryParameters": {
+                    "earliest": "-24h@h",
+                    "latest": "now"
+                }
+            },
+            "type": "ds.search"
+        },
+        "ds_z6RAbcS6": {
+            "name": "Break down of install errors_ install.log search",
+            "options": {
+                "query": "index=* source=\"/var/log/install.log\" (\"failed\" OR \"error\" OR \"unsuccessful\") OR \"success*\"\n| eval Date=strftime(_time, \"%m/%d/%Y %H:%M:%S\")\n| rex field=_raw \"^(?:[^\\]\\n]*\\]){3}(?P<Reason>.+)\"\n| rex field=_raw \"^(?:[^ \\n]* ){3}(?P<process>\\w+)\"\n| search UserInfo!=\" \" \n| table date_wday Date Code process Reason",
+                "queryParameters": {
+                    "earliest": "$global_time.earliest$",
+                    "latest": "$global_time.latest$"
+                }
+            },
+            "type": "ds.search"
+        },
+        "ds_zEaHJI5c": {
+            "name": "Pie chart",
+            "options": {
+                "query": "index=* fail OR failure OR critical OR issue OR problem \n| eval description=case(\n    sourcetype==\"launchd\", \"launchd is the macOS system and service manager responsible for managing daemons and services.\",\n    sourcetype==\"launchd.log\", \"launchd is the macOS system and service manager responsible for managing daemons and services.\",\n    sourcetype==\"ps\", \"ps represents the macOS command for reporting process status.\",\n    sourcetype==\"osx_install\", \"osx_install logs related to macOS or application installations.\",\n    sourcetype==\"package\", \"Logs related to macOS package installations or updates.\",\n    sourcetype==\"fing-agent-too_small\", \"Logs from Fing Agent focusing on small packets or network events.\",\n    sourcetype==\"[2025-01-19_14,49,54.865224]-AppleBCMWLAN_Logs\", \"Unknown macOS-related log, possibly Wi-Fi or network-related.\",\n    sourcetype==\"diag-82\", \"Unknown diagnostic log, may relate to macOS system diagnostics.\",\n    sourcetype==\"diag-too_small\", \"Unknown diagnostic log, potentially related to small event logs.\",\n    sourcetype==\"time\", \"Unknown log source, requires further investigation.\",\n    1==1, \"Unknown sourcetype\"\n)\n| stats count by sourcetype description \n| sort - count",
+                "queryParameters": {
+                    "earliest": "$global_time.earliest$",
+                    "latest": "$global_time.latest$"
+                }
+            },
+            "type": "ds.search"
+        }
+    },
+    "layout": {
+        "globalInputs": [
+            "input_global_trp",
+            "input_mHrvQDIo",
+            "input_tqojzaj6"
+        ],
+        "layoutDefinitions": {
+            "layout_1": {
+                "options": {
+                    "height": 960,
+                    "width": 1440
+                },
+                "structure": [
+                    {
+                        "item": "viz_zxvXnddD",
+                        "position": {
+                            "h": 165,
+                            "w": 806,
+                            "x": 0,
+                            "y": 0
+                        },
+                        "type": "block"
+                    },
+                    {
+                        "item": "viz_1xW7YDjj",
+                        "position": {
+                            "h": 75,
+                            "w": 806,
+                            "x": 0,
+                            "y": 165
+                        },
+                        "type": "block"
+                    },
+                    {
+                        "item": "input_Em0fsJAy",
+                        "position": {
+                            "h": 100,
+                            "w": 372,
+                            "x": 0,
+                            "y": 240
+                        },
+                        "type": "input"
+                    },
+                    {
+                        "item": "viz_fZvjnL4Y",
+                        "position": {
+                            "h": 242,
+                            "w": 372,
+                            "x": 0,
+                            "y": 340
+                        },
+                        "type": "block"
+                    },
+                    {
+                        "item": "viz_1LXd423J",
+                        "position": {
+                            "h": 524,
+                            "w": 1443,
+                            "x": 0,
+                            "y": 582
+                        },
+                        "type": "block"
+                    },
+                    {
+                        "item": "viz_tPxAAyci",
+                        "position": {
+                            "h": 330,
+                            "w": 1443,
+                            "x": 0,
+                            "y": 1106
+                        },
+                        "type": "block"
+                    },
+                    {
+                        "item": "viz_Btpajyvb",
+                        "position": {
+                            "h": 143,
+                            "w": 721,
+                            "x": 0,
+                            "y": 1436
+                        },
+                        "type": "block"
+                    },
+                    {
+                        "item": "viz_Sq8XtHRD",
+                        "position": {
+                            "h": 479,
+                            "w": 721,
+                            "x": 0,
+                            "y": 1579
+                        },
+                        "type": "block"
+                    },
+                    {
+                        "item": "viz_GP34no8D",
+                        "position": {
+                            "h": 432,
+                            "w": 1015,
+                            "x": 0,
+                            "y": 2058
+                        },
+                        "type": "block"
+                    },
+                    {
+                        "item": "viz_BkFCrdus",
+                        "position": {
+                            "h": 354,
+                            "w": 722,
+                            "x": 0,
+                            "y": 2490
+                        },
+                        "type": "block"
+                    },
+                    {
+                        "item": "viz_mGrpSY8u",
+                        "position": {
+                            "h": 1645,
+                            "w": 1443,
+                            "x": 0,
+                            "y": 2844
+                        },
+                        "type": "block"
+                    },
+                    {
+                        "item": "viz_qhv9OmDc",
+                        "position": {
+                            "h": 342,
+                            "w": 1071,
+                            "x": 372,
+                            "y": 240
+                        },
+                        "type": "block"
+                    },
+                    {
+                        "item": "viz_hZzbeaHn",
+                        "position": {
+                            "h": 426,
+                            "w": 722,
+                            "x": 721,
+                            "y": 1632
+                        },
+                        "type": "block"
+                    },
+                    {
+                        "item": "viz_gpAISOux",
+                        "position": {
+                            "h": 196,
+                            "w": 722,
+                            "x": 721,
+                            "y": 1436
+                        },
+                        "type": "block"
+                    },
+                    {
+                        "item": "viz_EKgTv2IO",
+                        "position": {
+                            "h": 354,
+                            "w": 721,
+                            "x": 722,
+                            "y": 2490
+                        },
+                        "type": "block"
+                    },
+                    {
+                        "item": "viz_M3RepM91",
+                        "position": {
+                            "h": 240,
+                            "w": 637,
+                            "x": 806,
+                            "y": 0
+                        },
+                        "type": "block"
+                    },
+                    {
+                        "item": "viz_f6PLEuh9",
+                        "position": {
+                            "h": 150,
+                            "w": 428,
+                            "x": 1015,
+                            "y": 2340
+                        },
+                        "type": "block"
+                    },
+                    {
+                        "item": "viz_e7sm89Zj",
+                        "position": {
+                            "h": 282,
+                            "w": 428,
+                            "x": 1015,
+                            "y": 2058
+                        },
+                        "type": "block"
+                    }
+                ],
+                "type": "grid"
+            }
+        },
+        "tabs": {
+            "items": [
+                {
+                    "label": "New tab",
+                    "layoutId": "layout_1"
+                }
+            ]
+        }
+    }
+}
